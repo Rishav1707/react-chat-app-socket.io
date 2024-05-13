@@ -1,0 +1,52 @@
+#joinLobby {
+    width: 25%;
+    padding: 20px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#joinLobby h1 {
+    text-align: center;
+}
+
+#joinLobby form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#joinLobby input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    background-color: transparent;
+}
+
+#joinLobby input:focus {
+    outline: none;
+    border: 1px solid #fff;
+}
+
+#joinLobby button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #f00;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#joinLobby button:hover {
+    background-color: rgb(194, 0, 0);
+}

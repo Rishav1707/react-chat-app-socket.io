@@ -1,0 +1,145 @@
+.material-symbols-outlined {
+    font-size: 1.2rem;
+    color: #c3c3c3;
+}
+
+#private_room {
+    width: inherit;
+    height: inherit;
+    display: flex;
+}
+
+#sideBar {
+    width: 3.5%;
+    display: flex;
+    padding: 1rem 0;
+    background-color: #222222;
+}
+
+#sideBar .main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#sideBar .main span {
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+#sideBar .main span:hover {
+    background-color: rgb(70, 70, 70);
+    border-radius: 6px;
+}
+
+#sideBar .bottom,
+#sideBar .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sideBar .top {
+    gap: 1.2rem;
+}
+
+#sideBar .bottom {
+    gap: 1.2rem;
+}
+
+#groupListSection {
+    width: 26.5%;
+    padding: 10px;
+    border-right: 2px solid #191919;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    overflow-y: scroll;
+}
+
+#groupListSection .grp {
+    font-size: 1.3rem;
+    padding: 20px;
+}
+
+#chatSection {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatInput {
+    height: 92%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: hidden;
+}
+
+.chatInput header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #191919;
+    padding: 14px 20px;
+}
+
+.profile {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile img,
+#sideBar img {
+    border-radius: 50%;
+}
+
+#communication {
+    width: 12%;
+    padding: 12px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 4px;
+    box-shadow: 0 0 1px 0 #fff;
+}
+
+#communication button {
+    display: flex;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+.verticalLine {
+    color: #5d5d5d;
+}
+
+#private_room h1 {
+    text-align: center;
+}
+
+.helloVideoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 2rem;
+}
+
+.helloVideoContainer video {
+    border-radius: 70px;
+}
+
+.helloVideoContainer p {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 0 16rem;
+    color: #a0a0a0;
+}
