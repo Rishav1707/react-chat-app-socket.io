@@ -18,7 +18,10 @@ const io = new Server(httpServer, {
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://react-chat-app-socket-io.onrender.com",
+    ],
   })
 );
 app.use(express.json());
