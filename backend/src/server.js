@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://react-chat-app-socket-io.onrender.com",
+      "https://react-chat-app-socket-io-tau.vercel.app",
     ],
   })
 );
