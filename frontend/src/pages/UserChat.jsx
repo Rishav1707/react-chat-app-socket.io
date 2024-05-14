@@ -45,6 +45,7 @@ const UserChat = ({ setIsLoggedIn }) => {
       setIsUserProfileClicked(true);
       setUserProfile(data);
     });
+    setMessage("");
   };
 
   return (

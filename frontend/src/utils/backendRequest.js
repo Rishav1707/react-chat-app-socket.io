@@ -25,7 +25,6 @@ const fetchAllUsers = async () => {
         Authorization: `Bearer ${localStorage.getItem("authtoken")}`,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -47,16 +46,11 @@ const userById = async (userId) => {
 
 const addNewMessage = async (payload) => {
   try {
-    const response = await axios.post(
-      `${BACKEND_BASE_URL}/chat/addMessages`,
-      payload,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authtoken")}`,
-        },
-      }
-    );
-    console.log(response.data);
+    await axios.post(`${BACKEND_BASE_URL}/chat/addMessages`, payload, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authtoken")}`,
+      },
+    });
   } catch (err) {
     console.log(err);
   }
@@ -73,7 +67,6 @@ const getMessages = async (payload) => {
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);

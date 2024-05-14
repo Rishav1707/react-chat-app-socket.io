@@ -19,12 +19,12 @@ const Input = ({
       to: selectedUserId,
     });
     setChat([...chat, { message, fromSelf: true }]);
-    setMessage("");
     await addNewMessage({
       message: message,
       from: myprofile._id,
       to: selectedUserId,
     });
+    setMessage("");
   };
 
   const handleKeyPress = (e) => {
