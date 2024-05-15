@@ -33,6 +33,7 @@ const getMessages = async (req, res) => {
       return {
         fromSelf: msg.sender.toString() === req.body.from,
         message: msg.message,
+        from: msg.sender,
       };
     });
     res.status(200).json(projectedMessages);

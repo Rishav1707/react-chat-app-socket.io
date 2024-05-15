@@ -16,9 +16,10 @@ const Input = ({
     if (!message) return;
     socket.emit("send-msg", {
       message: message,
+      from: myprofile._id,
       to: selectedUserId,
     });
-    setChat([...chat, { message, fromSelf: true }]);
+    setChat([...chat, { message, fromSelf: true, from: myprofile._id }]);
     await addNewMessage({
       message: message,
       from: myprofile._id,

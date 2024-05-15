@@ -37,10 +37,10 @@ io.on("connection", (socket) => {
     onlineUsers.set(userId, socket.id);
   });
 
-  socket.on("send-msg", ({ message, to }) => {
+  socket.on("send-msg", ({ message, from, to }) => {
     const receiverSocketID = onlineUsers.get(to);
     if (receiverSocketID) {
-      io.to(receiverSocketID).emit("msg-recieved", message);
+      io.to(receiverSocketID).emit("msg-recieved", { message, from });
     }
   });
 

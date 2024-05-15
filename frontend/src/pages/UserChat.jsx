@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import Input from "../components/Input";
 import {
   fetchUserProfile,
   fetchAllUsers,
@@ -21,15 +20,11 @@ const UserChat = ({ setIsLoggedIn }) => {
   const [userProfile, setUserProfile] = useState({});
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [message, setMessage] = useState("");
-  const [chat, setChat] = useState([]);
 
   useEffect(() => {
     fetchUserProfile().then((data) => {
       setMyProfile(data);
     });
-  }, []);
-
-  useEffect(() => {
     fetchAllUsers().then((data) => {
       setAllUsers(data);
     });
@@ -71,20 +66,12 @@ const UserChat = ({ setIsLoggedIn }) => {
           <div className="chatInput">
             <Header profile={userProfile} />
             <ShowChat
-              chat={chat}
-              setChat={setChat}
               myprofile={myprofile}
               selectedUserId={selectedUserId}
+              message={message}
+              setMessage={setMessage}
             />
           </div>
-          <Input
-            message={message}
-            setMessage={setMessage}
-            selectedUserId={selectedUserId}
-            setChat={setChat}
-            chat={chat}
-            myprofile={myprofile}
-          />
         </section>
       ) : (
         <section id="chatSection">
