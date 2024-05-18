@@ -32,6 +32,23 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       maxLength: 50,
     },
+    unreadMsgCount: {
+      type: Number,
+      default: 0,
+    },
+    lastMessage: [
+      {
+        to: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        message: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Message",
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

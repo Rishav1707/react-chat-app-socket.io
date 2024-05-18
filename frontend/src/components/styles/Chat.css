@@ -14,7 +14,9 @@
     justify-content: flex-end;
 }
 
-.currentUser p {
+.currentUser .messContainer {
+    display: flex;
+    gap: 1.3rem;
     width: auto;
     max-width: 50%;
     padding: 10px;
@@ -24,6 +26,12 @@
     border-bottom-right-radius: 8px;
 }
 
+.messContainer div {
+    display: flex;
+    align-items: flex-end;
+    font-size: 11px;
+}
+
 .otherUser {
     width: 100%;
     padding: 2px;
@@ -31,7 +39,9 @@
     justify-content: flex-start;
 }
 
-.otherUser p {
+.otherUser .messContainer {
+    display: flex;
+    gap: 1.3rem;
     width: auto;
     max-width: 50%;
     padding: 10px;
@@ -90,6 +100,7 @@
     gap: 1rem;
     border-radius: 10px;
     margin-bottom: 0.5rem;
+    position: relative;
 }
 
 .groupName h3 {
@@ -102,9 +113,32 @@
 
 .groupName:hover {
     cursor: pointer;
-    background-color: rgb(70, 70, 70);
+    background-color: rgb(60, 60, 60);
 }
 
 .userFocused {
-    background-color: rgb(70, 70, 70);
+    background-color: rgb(60, 60, 60);
+}
+
+.lastMessageTime {
+    display: flex;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.lastMessageTime p:nth-child(2) {
+    position: absolute;
+    font-size: 12px;
+    right: 1.2rem;
+    top: 1.1rem;
+}
+
+.header-name p:nth-child(1) {
+    font-size: 1.1rem;
+    letter-spacing: 0.7px;
+}
+
+.header-name p:nth-child(2) {
+    font-size: 12px;
+    letter-spacing: 0.7px;
 }

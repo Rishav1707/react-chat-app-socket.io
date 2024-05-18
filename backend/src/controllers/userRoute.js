@@ -83,7 +83,10 @@ const allUsers = async (req, res) => {
     const users = await User.find(
       { _id: { $ne: req.userId } },
       { password: 0 }
-    );
+    ).populate({
+      path: "lastMessage.message",
+    });
+
     if (users.length === 0) {
       res.status(404).json({ message: "No users found" });
       return;
@@ -113,4 +116,31 @@ const userById = async (req, res) => {
   }
 };
 
-module.exports = { userSignup, userSignin, userProfile, allUsers, userById };
+const incrementUnreadMessages = async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.body.id, {
+      $inc: { unreadMsgCount: 1 },
+    });
+    if (!updatedUser) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    res
+      .status(200)
+      .json({ message: "Unread messages incremented successfully" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error while incrementing unread messages",
+      error: err.message,
+    });
+  }
+};
+
+module.exports = {
+  userSignup,
+  userSignin,
+  userProfile,
+  allUsers,
+  userById,
+  incrementUnreadMessages,
+};

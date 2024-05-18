@@ -5,7 +5,7 @@ const SideBar = ({ profile, setIsLoggedIn }) => {
       <div className="top">
         <span className="material-symbols-outlined">menu</span>
         <span
-          style={{ backgroundColor: "rgb(70, 70, 70)", borderRadius: "6px" }}
+          style={{ backgroundColor: "rgb(60, 60, 60)", borderRadius: "6px" }}
           className="material-symbols-outlined"
         >
           chat

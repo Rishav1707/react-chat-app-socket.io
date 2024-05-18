@@ -44,6 +44,13 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("typing...", ({ from, to }) => {
+    const receiverSocketID = onlineUsers.get(to);
+    if (receiverSocketID) {
+      io.to(receiverSocketID).emit("typing...", from);
+    }
+  });
+
   // socket.on("joinRoom", ({ RoomName, userName }) => {
   //   socket.join(RoomName);
   //   io.to(RoomName).emit("username", `${userName} has joined the room.`);

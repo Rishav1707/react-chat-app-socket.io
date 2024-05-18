@@ -1,6 +1,22 @@
 /* eslint-disable react/prop-types */
 
-const Header = ({ profile }) => {
+import { useEffect, useState } from "react";
+import { socket } from "../utils/createSocketHost";
+
+const Header = ({ profile, setIsTyping, isTyping }) => {
+  const [senderID, setSenderID] = useState(null);
+
+  useEffect(() => {
+    socket.on("typing...", (from) => {
+      setIsTyping(true);
+      setSenderID(from);
+    });
+
+    return () => {
+      socket.off("typing...");
+    };
+  }, [isTyping]);
+
   return (
     <header>
       <div className="profile">
@@ -10,9 +26,12 @@ const Header = ({ profile }) => {
           width={45}
           height={45}
         />
-        <p>
-          {profile.firstName} {profile.lastName}
-        </p>
+        <div className="header-name">
+          <p>
+            {profile.firstName} {profile.lastName}
+          </p>
+          <p>{isTyping && senderID === profile._id ? "Typing..." : ""}</p>
+        </div>
       </div>
       <div id="communication">
         <button>

@@ -20,6 +20,7 @@ const UserChat = ({ setIsLoggedIn }) => {
   const [userProfile, setUserProfile] = useState({});
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [message, setMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     fetchUserProfile().then((data) => {
@@ -57,6 +58,7 @@ const UserChat = ({ setIsLoggedIn }) => {
               user={user}
               isSelected={selectedUserId === user._id}
               onClick={() => handleUserProfile(user._id)}
+              myprofile={myprofile}
             />
           ))}
         </div>
@@ -64,12 +66,18 @@ const UserChat = ({ setIsLoggedIn }) => {
       {isUserProfileClicked ? (
         <section id="chatSection">
           <div className="chatInput">
-            <Header profile={userProfile} />
+            <Header
+              profile={userProfile}
+              isTyping={isTyping}
+              setIsTyping={setIsTyping}
+            />
             <ShowChat
               myprofile={myprofile}
               selectedUserId={selectedUserId}
               message={message}
               setMessage={setMessage}
+              setAllUsers={setAllUsers}
+              setIsTyping={setIsTyping}
             />
           </div>
         </section>

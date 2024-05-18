@@ -1,17 +1,29 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import { socket } from "../utils/createSocketHost";
-import { getMessages } from "../utils/backendRequest";
+import { fetchAllUsers, getMessages } from "../utils/backendRequest";
 import Input from "./Input";
 import "./styles/Chat.css";
 
-const ShowChat = ({ myprofile, selectedUserId, message, setMessage }) => {
+const ShowChat = ({
+  myprofile,
+  selectedUserId,
+  message,
+  setMessage,
+  setAllUsers,
+  setIsTyping,
+}) => {
   const [chat, setChat] = useState([]);
   const chatRef = useRef(null);
 
   useEffect(() => {
     socket.on("msg-recieved", ({ message, from }) => {
-      setChat([...chat, { message, fromSelf: false, from }]);
+      setChat([
+        ...chat,
+        { message, fromSelf: false, from, time: new Date().toString() },
+      ]);
+
+      setIsTyping(false);
     });
 
     return () => {
@@ -20,9 +32,18 @@ const ShowChat = ({ myprofile, selectedUserId, message, setMessage }) => {
   }, [chat]);
 
   useEffect(() => {
+    setTimeout(() => {
+      fetchAllUsers().then((data) => {
+        setAllUsers(data);
+      });
+    }, 100);
+  }, [chat]);
+
+  useEffect(() => {
     getMessages({ from: myprofile._id, to: selectedUserId }).then((data) => {
       setChat(data);
     });
+    setIsTyping(false);
   }, [myprofile._id, selectedUserId]);
 
   useEffect(() => {
@@ -38,7 +59,14 @@ const ShowChat = ({ myprofile, selectedUserId, message, setMessage }) => {
             key={index}
           >
             {(mess.fromSelf || mess.from === selectedUserId) && (
-              <p>{mess.message}</p>
+              <>
+                <div className="messContainer">
+                  <p className="mess">{mess.message}</p>
+                  <div>
+                    <sub>{mess.time.split(" ")[4].substring(0, 5)}</sub>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         ))}
@@ -51,6 +79,7 @@ const ShowChat = ({ myprofile, selectedUserId, message, setMessage }) => {
         setChat={setChat}
         chat={chat}
         myprofile={myprofile}
+        setAllUsers={setAllUsers}
       />
     </>
   );
