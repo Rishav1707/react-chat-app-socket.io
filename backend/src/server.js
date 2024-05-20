@@ -51,6 +51,17 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("stopTyping", ({ to }) => {
+    const receiverSocketID = onlineUsers.get(to);
+    if (receiverSocketID) {
+      io.to(receiverSocketID).emit("stopTyping");
+    }
+  });
+
+  socket.on("logout", (userId) => {
+    onlineUsers.delete(userId);
+  });
+
   // socket.on("joinRoom", ({ RoomName, userName }) => {
   //   socket.join(RoomName);
   //   io.to(RoomName).emit("username", `${userName} has joined the room.`);

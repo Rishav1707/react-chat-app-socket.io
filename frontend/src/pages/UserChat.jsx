@@ -59,6 +59,7 @@ const UserChat = ({ setIsLoggedIn }) => {
               isSelected={selectedUserId === user._id}
               onClick={() => handleUserProfile(user._id)}
               myprofile={myprofile}
+              setAllUsers={setAllUsers}
             />
           ))}
         </div>
@@ -73,6 +74,7 @@ const UserChat = ({ setIsLoggedIn }) => {
             />
             <ShowChat
               myprofile={myprofile}
+              setMyProfile={setMyProfile}
               selectedUserId={selectedUserId}
               message={message}
               setMessage={setMessage}

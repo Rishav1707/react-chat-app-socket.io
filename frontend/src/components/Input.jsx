@@ -2,6 +2,7 @@
 import { socket } from "../utils/createSocketHost";
 import { addNewMessage, fetchAllUsers } from "../utils/backendRequest";
 import "./styles/Chat.css";
+import { useRef } from "react";
 
 const Input = ({
   message,
@@ -12,6 +13,8 @@ const Input = ({
   myprofile,
   setAllUsers,
 }) => {
+  const sendTypingRef = useRef(null);
+
   const sendChat = async (e) => {
     e.preventDefault();
 
@@ -53,6 +56,25 @@ const Input = ({
     }
   };
 
+  const handleInputChange = (e) => {
+    setMessage(e.target.value);
+
+    socket.emit("typing...", {
+      to: selectedUserId,
+      from: myprofile._id,
+    });
+
+    if (sendTypingRef.current) {
+      clearTimeout(sendTypingRef.current);
+    }
+
+    sendTypingRef.current = setTimeout(() => {
+      socket.emit("stopTyping", {
+        to: selectedUserId,
+      });
+    }, 1000);
+  };
+
   return (
     <form onSubmit={sendChat} id="messageInput">
       <textarea
@@ -60,15 +82,7 @@ const Input = ({
         id="chat"
         placeholder="Type a message"
         value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
-          if (e.target.value.length > 0) {
-            socket.emit("typing...", {
-              to: selectedUserId,
-              from: myprofile._id,
-            });
-          }
-        }}
+        onChange={handleInputChange}
         onKeyDown={handleKeyPress}
       />
       <button type="submit">

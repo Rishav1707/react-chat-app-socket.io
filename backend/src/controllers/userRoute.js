@@ -118,20 +118,47 @@ const userById = async (req, res) => {
 
 const incrementUnreadMessages = async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.body.id, {
-      $inc: { unreadMsgCount: 1 },
+    await User.updateOne(
+      { _id: req.userId, "unreadMsgCount.from": req.body.from },
+      {
+        $inc: { "unreadMsgCount.$.count": 1 },
+      }
+    );
+
+    await User.updateOne(
+      { _id: req.userId, "unreadMsgCount.from": { $ne: req.body.from } },
+      {
+        $addToSet: {
+          unreadMsgCount: { from: req.body.from, count: 1 },
+        },
+      }
+    );
+
+    res.status(200).json({
+      message: "Unread messages incremented successfully.",
     });
-    if (!updatedUser) {
-      res.status(404).json({ message: "User not found" });
-      return;
-    }
-    res
-      .status(200)
-      .json({ message: "Unread messages incremented successfully" });
   } catch (err) {
     res.status(500).json({
-      message: "Error while incrementing unread messages",
+      message: "Error while incrementing unread messages.",
       error: err.message,
+    });
+  }
+};
+
+const resetUnreadMessages = async (req, res) => {
+  try {
+    await User.updateOne(
+      { _id: req.userId, "unreadMsgCount.from": req.body.from },
+      {
+        $set: { "unreadMsgCount.$.count": 0 },
+      }
+    );
+
+    res.status(200).json({ message: "Unread messages reset successfully." });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error while resetting unread messages.",
+      error: error.message,
     });
   }
 };
@@ -143,4 +170,5 @@ module.exports = {
   allUsers,
   userById,
   incrementUnreadMessages,
+  resetUnreadMessages,
 };

@@ -73,11 +73,27 @@ const getMessages = async (payload) => {
   }
 };
 
-const incrementUnreadMsg = async (id) => {
+const incrementUnreadMsg = async (from) => {
+  try {
+    await axios.put(
+      `${BACKEND_BASE_URL}/user/unreadMessages/increment`,
+      { from },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authtoken")}`,
+        },
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const resetUnreadMsg = async (from) => {
   try {
     const response = await axios.put(
-      `${BACKEND_BASE_URL}/user/unreadMessages/increment`,
-      { id },
+      `${BACKEND_BASE_URL}/user/unreadMessages/reset`,
+      { from },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authtoken")}`,
@@ -97,4 +113,5 @@ export {
   addNewMessage,
   getMessages,
   incrementUnreadMsg,
+  resetUnreadMsg,
 };

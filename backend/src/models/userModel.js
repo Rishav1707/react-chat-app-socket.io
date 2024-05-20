@@ -32,10 +32,18 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       maxLength: 50,
     },
-    unreadMsgCount: {
-      type: Number,
-      default: 0,
-    },
+    unreadMsgCount: [
+      {
+        from: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        count: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
     lastMessage: [
       {
         to: {

@@ -12,8 +12,13 @@ const Header = ({ profile, setIsTyping, isTyping }) => {
       setSenderID(from);
     });
 
+    socket.on("stopTyping", () => {
+      setIsTyping(false);
+    });
+
     return () => {
       socket.off("typing...");
+      socket.off("stopTyping");
     };
   }, [isTyping]);
 
@@ -30,7 +35,7 @@ const Header = ({ profile, setIsTyping, isTyping }) => {
           <p>
             {profile.firstName} {profile.lastName}
           </p>
-          <p>{isTyping && senderID === profile._id ? "Typing..." : ""}</p>
+          <p>{isTyping && senderID === profile._id ? "typing..." : ""}</p>
         </div>
       </div>
       <div id="communication">

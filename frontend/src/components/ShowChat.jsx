@@ -1,12 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import { socket } from "../utils/createSocketHost";
-import { fetchAllUsers, getMessages } from "../utils/backendRequest";
+import {
+  fetchAllUsers,
+  fetchUserProfile,
+  getMessages,
+  incrementUnreadMsg,
+} from "../utils/backendRequest";
 import Input from "./Input";
 import "./styles/Chat.css";
 
 const ShowChat = ({
   myprofile,
+  setMyProfile,
   selectedUserId,
   message,
   setMessage,
@@ -24,6 +31,14 @@ const ShowChat = ({
       ]);
 
       setIsTyping(false);
+
+      if (from !== selectedUserId) {
+        incrementUnreadMsg(from).then(() => {
+          fetchUserProfile().then((data) => {
+            setMyProfile(data);
+          });
+        });
+      }
     });
 
     return () => {
@@ -36,7 +51,7 @@ const ShowChat = ({
       fetchAllUsers().then((data) => {
         setAllUsers(data);
       });
-    }, 100);
+    }, 150);
   }, [chat]);
 
   useEffect(() => {

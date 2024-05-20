@@ -7,6 +7,7 @@ const {
   allUsers,
   userById,
   incrementUnreadMessages,
+  resetUnreadMessages,
 } = require("../controllers/userRoute");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -20,5 +21,6 @@ router.put(
   authMiddleware,
   incrementUnreadMessages
 );
+router.put("/unreadMessages/reset", authMiddleware, resetUnreadMessages);
 
 module.exports = router;

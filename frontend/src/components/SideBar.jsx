@@ -1,3 +1,5 @@
+import { socket } from "../utils/createSocketHost";
+
 /* eslint-disable react/prop-types */
 const SideBar = ({ profile, setIsLoggedIn }) => {
   return (
@@ -18,6 +20,7 @@ const SideBar = ({ profile, setIsLoggedIn }) => {
         <span
           className="material-symbols-outlined"
           onClick={() => {
+            socket.emit("logout", profile._id);
             localStorage.removeItem("authtoken");
             setIsLoggedIn(false);
           }}
