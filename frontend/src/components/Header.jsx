@@ -23,8 +23,6 @@ const Header = ({
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
 
-    console.log(getUserMedia);
-
     getUserMedia({ video: true, audio: false }, (mediaStream) => {
       currentUserVideoRef.current.srcObject = mediaStream;
       currentUserVideoRef.current.play();
@@ -32,7 +30,6 @@ const Header = ({
       const call = peerInstance.current.call(remotePeerId, mediaStream);
 
       call.on("stream", (remoteStream) => {
-        console.log(remoteStream);
         remoteVideoRef.current.srcObject = remoteStream;
         remoteVideoRef.current.play();
       });

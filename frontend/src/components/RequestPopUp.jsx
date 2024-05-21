@@ -4,7 +4,6 @@ import { socket } from "../utils/createSocketHost";
 const RequestPopUp = ({ setRequestId, to, from, peerId }) => {
   const handleCallDecline = () => {
     setRequestId(null);
-    console.log("decline call");
     socket.emit("requestedCallDecline", { to, from });
   };
 
