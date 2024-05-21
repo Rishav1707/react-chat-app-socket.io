@@ -23,12 +23,14 @@ const VideoCall = ({ peerInstance, currentUserVideoRef, remoteVideoRef }) => {
   }, []);
 
   return (
-    <div className="videoCall">
-      <div>
-        <video ref={currentUserVideoRef} />
-      </div>
-      <div>
-        <video ref={remoteVideoRef} />
+    <div className="videoCallContainer">
+      <div className="videoCallMain">
+        <div>
+          <video ref={currentUserVideoRef} />
+        </div>
+        <div>
+          <video ref={remoteVideoRef} />
+        </div>
       </div>
     </div>
   );
