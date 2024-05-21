@@ -5,6 +5,13 @@
     height: 90%;
     padding: 20px;
     overflow-y: scroll;
+    position: relative;
+}
+
+.RequestPopUpContainer {
+    background-color: aqua;
+    position: absolute;
+    width: 30%;
 }
 
 .currentUser {
@@ -151,7 +158,19 @@
     letter-spacing: 0.7px;
 }
 
-.header-name p:nth-child(2) {
+.header-name p:nth-child(2),
+.header-name p:nth-child(3),
+.header-name p:nth-child(4) {
     font-size: 12px;
     letter-spacing: 0.7px;
+}
+
+.videoCall {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.videoCall video {
+    width: 30%;
 }

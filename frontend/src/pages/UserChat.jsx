@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import {
   fetchUserProfile,
@@ -12,6 +12,7 @@ import SideBar from "../components/SideBar";
 import StartSkeleton from "../components/StartSkeleton";
 import { socket } from "../utils/createSocketHost";
 import ShowChat from "../components/ShowChat";
+import Peer from "peerjs";
 import "./styles/Join.css";
 
 const UserChat = ({ setIsLoggedIn }) => {
@@ -22,6 +23,20 @@ const UserChat = ({ setIsLoggedIn }) => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [peerId, setPeerId] = useState(null);
+  const remoteVideoRef = useRef(null);
+  const currentUserVideoRef = useRef(null);
+  const peerInstance = useRef(null);
+
+  useEffect(() => {
+    const peer = new Peer();
+
+    peer.on("open", (id) => {
+      setPeerId(id);
+    });
+
+    peerInstance.current = peer;
+  }, []);
 
   useEffect(() => {
     fetchUserProfile().then((data) => {
@@ -82,8 +97,12 @@ const UserChat = ({ setIsLoggedIn }) => {
           <div className="chatInput">
             <Header
               profile={userProfile}
+              myprofile={myprofile}
               isTyping={isTyping}
               setIsTyping={setIsTyping}
+              peerInstance={peerInstance}
+              remoteVideoRef={remoteVideoRef}
+              currentUserVideoRef={currentUserVideoRef}
             />
             <ShowChat
               myprofile={myprofile}
@@ -93,6 +112,10 @@ const UserChat = ({ setIsLoggedIn }) => {
               setMessage={setMessage}
               setAllUsers={setAllUsers}
               setIsTyping={setIsTyping}
+              peerId={peerId}
+              remoteVideoRef={remoteVideoRef}
+              currentUserVideoRef={currentUserVideoRef}
+              peerInstance={peerInstance}
             />
           </div>
         </section>

@@ -58,6 +58,27 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("requestVideoCall", ({ to, from }) => {
+    const receiverSocketID = onlineUsers.get(to);
+    if (receiverSocketID) {
+      io.to(receiverSocketID).emit("requestVideoCall", from);
+    }
+  });
+
+  socket.on("requestedCallAccept", ({ to, from, peerId }) => {
+    const receiverSocketID = onlineUsers.get(to);
+    if (receiverSocketID) {
+      io.to(receiverSocketID).emit("requestedCallAccept", { from, peerId });
+    }
+  });
+
+  socket.on("requestedCallDecline", ({ to, from }) => {
+    const receiverSocketID = onlineUsers.get(to);
+    if (receiverSocketID) {
+      io.to(receiverSocketID).emit("requestedCallDecline", from);
+    }
+  });
+
   socket.on("logout", (userId) => {
     onlineUsers.delete(userId);
   });

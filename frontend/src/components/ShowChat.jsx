@@ -9,6 +9,8 @@ import {
   incrementUnreadMsg,
 } from "../utils/backendRequest";
 import Input from "./Input";
+import RequestPopUp from "./RequestPopUp";
+import VideoCall from "./VideoCall";
 import "./styles/Chat.css";
 
 const ShowChat = ({
@@ -19,9 +21,14 @@ const ShowChat = ({
   setMessage,
   setAllUsers,
   setIsTyping,
+  peerId,
+  currentUserVideoRef,
+  remoteVideoRef,
+  peerInstance,
 }) => {
   const [chat, setChat] = useState([]);
   const chatRef = useRef(null);
+  const [requestId, setRequestId] = useState(null);
 
   useEffect(() => {
     socket.on("msg-recieved", ({ message, from }) => {
@@ -62,6 +69,12 @@ const ShowChat = ({
   }, [myprofile._id, selectedUserId]);
 
   useEffect(() => {
+    socket.on("requestVideoCall", (from) => {
+      setRequestId(from);
+    });
+  }, []);
+
+  useEffect(() => {
     chatRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
 
@@ -85,6 +98,19 @@ const ShowChat = ({
             )}
           </div>
         ))}
+        {requestId === selectedUserId && (
+          <RequestPopUp
+            setRequestId={setRequestId}
+            to={selectedUserId}
+            from={myprofile._id}
+            peerId={peerId}
+          />
+        )}
+        <VideoCall
+          peerInstance={peerInstance}
+          currentUserVideoRef={currentUserVideoRef}
+          remoteVideoRef={remoteVideoRef}
+        />
         <div ref={chatRef}></div>
       </section>
       <Input
