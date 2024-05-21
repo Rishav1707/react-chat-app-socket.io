@@ -16,34 +16,35 @@ const User = ({ user, onClick, isSelected, myprofile }) => {
             {user.firstName} {user.lastName}
           </h3>
         </div>
-        {user.lastMessage && (
-          <>
-            {user.lastMessage.map((msg) => (
-              <div className="lastMessageTime" key={msg.to}>
-                {/* {msg.message?.sender === myprofile._id ? "You" : user.firstName} */}
-                {msg.to === myprofile._id &&
-                  msg.message &&
-                  (msg.message.message.length > 42 ? (
-                    <p>{msg.message.message.substring(0, 42) + "..."}</p>
-                  ) : (
-                    <p>{msg.message.message}</p>
-                  ))}
-                {msg.message &&
-                  (msg.message.users[0] === myprofile._id ||
-                    msg.message.users[1] === myprofile._id) && (
-                    <p>{msg.message.time.split(" ")[4].substring(0, 5)}</p>
-                  )}
-                {myprofile.unreadMsgCount?.map((unread) => (
-                  <Fragment key={unread.from}>
-                    {unread.from === user._id && unread.count > 0 && (
-                      <span>{unread.count}</span>
-                    )}
-                  </Fragment>
+        <div>
+          {user.lastMessage?.map((msg) => (
+            <Fragment key={msg.to}>
+              {msg.to === myprofile._id &&
+                msg.message &&
+                (msg.message.message.length > 42 ? (
+                  <p className="lastMessage">
+                    {msg.message.message.substring(0, 42) + "..."}
+                  </p>
+                ) : (
+                  <p className="lastMessage">{msg.message.message}</p>
                 ))}
-              </div>
-            ))}
-          </>
-        )}
+              {msg.message &&
+                (msg.message.users[0] === myprofile._id ||
+                  msg.message.users[1] === myprofile._id) && (
+                  <p className="lastMessageTime">
+                    {msg.message.time.split(" ")[4].substring(0, 5)}
+                  </p>
+                )}
+            </Fragment>
+          ))}
+        </div>
+        {myprofile.unreadMsgCount?.map((unread) => (
+          <Fragment key={unread.from}>
+            {unread.from === user._id && unread.count > 0 && (
+              <span className="count">{unread.count}</span>
+            )}
+          </Fragment>
+        ))}
       </div>
     </div>
   );

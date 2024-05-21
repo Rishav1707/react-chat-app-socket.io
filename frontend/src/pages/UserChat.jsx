@@ -5,6 +5,7 @@ import {
   fetchUserProfile,
   fetchAllUsers,
   userById,
+  resetUnreadMsg,
 } from "../utils/backendRequest";
 import User from "../components/User";
 import SideBar from "../components/SideBar";
@@ -42,6 +43,18 @@ const UserChat = ({ setIsLoggedIn }) => {
       setUserProfile(data);
     });
     setMessage("");
+
+    const unreadCount = myprofile.unreadMsgCount?.find(
+      (unread) => unread.from === id
+    )?.count;
+
+    if (unreadCount && unreadCount > 0) {
+      resetUnreadMsg(id).then(() => {
+        fetchUserProfile().then((data) => {
+          setMyProfile(data);
+        });
+      });
+    }
   };
 
   return (
