@@ -165,22 +165,12 @@
     letter-spacing: 0.7px;
 }
 
-.videoCallContainer {
+.videoCall {
     position: fixed;
-    width: 100%;
-    height: 100vh;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 0;
+    left: 0;
 }
 
-.videoCallMain {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-}
-
-.videoCallMain video {
-    width: 40%;
+.videoCall video {
+    width: 30%;
 }
