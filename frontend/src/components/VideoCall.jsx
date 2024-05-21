@@ -20,6 +20,7 @@ const VideoCall = ({ peerInstance, currentUserVideoRef, remoteVideoRef }) => {
         });
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
