@@ -27,10 +27,11 @@ const ShowChat = ({
   peerInstance,
   openVideoCall,
   setOpenVideoCall,
+  requestId,
+  setRequestId,
 }) => {
   const [chat, setChat] = useState([]);
   const chatRef = useRef(null);
-  const [requestId, setRequestId] = useState(null);
 
   useEffect(() => {
     socket.on("msg-recieved", ({ message, from }) => {

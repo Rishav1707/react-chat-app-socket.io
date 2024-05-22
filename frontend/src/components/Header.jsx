@@ -12,11 +12,12 @@ const Header = ({
   remoteVideoRef,
   currentUserVideoRef,
   setOpenVideoCall,
+  setRequestId,
 }) => {
   const [senderID, setSenderID] = useState(null);
   const [accept, setAccept] = useState(false);
   const [declined, setDeclined] = useState(false);
-  const [requestId, setRequestId] = useState(null);
+  const [requestPeerId, setRequestPeerId] = useState(null);
 
   const call = (remotePeerId) => {
     var getUserMedia =
@@ -46,8 +47,6 @@ const Header = ({
   const endCall = () => {
     stopMediaStreams(currentUserVideoRef.current?.srcObject);
     stopMediaStreams(remoteVideoRef.current?.srcObject);
-    // setOpenVideoCall(false);
-    // socket.emit("requestedCallDecline", { to, from });
     setRequestId(null);
   };
 
@@ -73,20 +72,20 @@ const Header = ({
       setDeclined(true);
       setOpenVideoCall(false);
       endCall();
-      setRequestId(from);
+      setRequestPeerId(from);
       setTimeout(() => {
         setDeclined(false);
-        setRequestId(null);
+        setRequestPeerId(null);
       }, 3000);
     });
 
     socket.on("requestedCallAccept", ({ from, peerId }) => {
       call(peerId);
       setAccept(true);
-      setRequestId(from);
+      setRequestPeerId(from);
       setTimeout(() => {
         setAccept(false);
-        setRequestId(null);
+        setRequestPeerId(null);
       }, 3000);
     });
 
@@ -111,8 +110,8 @@ const Header = ({
             {profile.firstName} {profile.lastName}
           </p>
           <p>{isTyping && senderID === profile._id ? "typing..." : ""}</p>
-          <p>{declined && requestId === profile._id && "Call Declined"}</p>
-          <p>{accept && requestId === profile._id && "Call Accepted"}</p>
+          <p>{declined && requestPeerId === profile._id && "Call Declined"}</p>
+          <p>{accept && requestPeerId === profile._id && "Call Accepted"}</p>
         </div>
       </div>
       <div id="communication">
