@@ -196,3 +196,43 @@
     width: 60%;
     border-radius: 1.2rem;
 }
+
+.videoCallIndividual-permission {
+    width: 100%;
+    position: fixed;
+    bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.videoCallIndividual-permission div {
+    display: flex;
+    gap: 4rem;
+    background-color: #222222;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.videoCallIndividual-permission button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    border-radius: 999px;
+    background-color: rgb(62, 62, 62);
+    cursor: pointer;
+}
+
+.videoCallIndividual-permission div button:nth-child(3) {
+    background-color: red;
+    padding: 0.5rem 1.5rem;
+}
+
+.videoCallIndividual-permission span {
+    color: #fff;
+}
+
+.videoCallIndividual-permission button span {
+    font-size: 1.5rem;
+}

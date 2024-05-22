@@ -31,6 +31,21 @@ const VideoCall = ({ peerInstance, currentUserVideoRef, remoteVideoRef }) => {
       <div className="videoCallIndividual-remote">
         <video ref={remoteVideoRef} />
       </div>
+      <div className="videoCallIndividual-permission">
+        <div>
+          <button>
+            <span className="material-symbols-outlined">videocam</span>
+            {/* <span className="material-symbols-outlined">videocam_off</span> */}
+          </button>
+          <button>
+            <span className="material-symbols-outlined">mic</span>
+            {/* <span className="material-symbols-outlined">mic_off</span> */}
+          </button>
+          <button>
+            <span className="material-symbols-outlined">call_end</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

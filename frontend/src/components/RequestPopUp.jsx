@@ -1,7 +1,7 @@
 import { socket } from "../utils/createSocketHost";
 
 /* eslint-disable react/prop-types */
-const RequestPopUp = ({ setRequestId, to, from, peerId }) => {
+const RequestPopUp = ({ setRequestId, to, from, peerId, setOpenVideoCall }) => {
   const handleCallDecline = () => {
     setRequestId(null);
     socket.emit("requestedCallDecline", { to, from });
@@ -9,6 +9,7 @@ const RequestPopUp = ({ setRequestId, to, from, peerId }) => {
 
   const handleCallAccept = () => {
     setRequestId(null);
+    setOpenVideoCall(true);
     socket.emit("requestedCallAccept", { to, from, peerId });
   };
 

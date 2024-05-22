@@ -29,6 +29,7 @@ const ShowChat = ({
   const [chat, setChat] = useState([]);
   const chatRef = useRef(null);
   const [requestId, setRequestId] = useState(null);
+  const [openVideoCall, setOpenVideoCall] = useState(false);
 
   useEffect(() => {
     socket.on("msg-recieved", ({ message, from }) => {
@@ -104,13 +105,16 @@ const ShowChat = ({
             to={selectedUserId}
             from={myprofile._id}
             peerId={peerId}
+            setOpenVideoCall={setOpenVideoCall}
           />
         )}
-        <VideoCall
-          peerInstance={peerInstance}
-          currentUserVideoRef={currentUserVideoRef}
-          remoteVideoRef={remoteVideoRef}
-        />
+        {openVideoCall && (
+          <VideoCall
+            peerInstance={peerInstance}
+            currentUserVideoRef={currentUserVideoRef}
+            remoteVideoRef={remoteVideoRef}
+          />
+        )}
         <div ref={chatRef}></div>
       </section>
       <Input
