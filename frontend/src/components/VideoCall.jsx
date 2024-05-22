@@ -1,27 +1,94 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { socket } from "../utils/createSocketHost";
 
-const VideoCall = ({ peerInstance, currentUserVideoRef, remoteVideoRef }) => {
+const VideoCall = ({
+  peerInstance,
+  currentUserVideoRef,
+  remoteVideoRef,
+  setOpenVideoCall,
+  to,
+  from,
+}) => {
+  const [isVideoEnabled, setIsVideoEnabled] = useState(true);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+
   useEffect(() => {
-    peerInstance.current.on("call", (call) => {
+    const peer = peerInstance.current;
+
+    const handleCall = (call) => {
       var getUserMedia =
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;
 
-      getUserMedia({ video: true, audio: false }, (mediaStream) => {
-        currentUserVideoRef.current.srcObject = mediaStream;
-        currentUserVideoRef.current.play();
+      getUserMedia({ video: true, audio: true }, (mediaStream) => {
+        if (currentUserVideoRef.current) {
+          currentUserVideoRef.current.srcObject = mediaStream;
+          currentUserVideoRef.current.play();
+        }
 
         call.answer(mediaStream);
-        call.on("stream", function (remoteStream) {
-          remoteVideoRef.current.srcObject = remoteStream;
-          remoteVideoRef.current.play();
+
+        call.on("stream", (remoteStream) => {
+          if (remoteVideoRef.current) {
+            remoteVideoRef.current.srcObject = remoteStream;
+            remoteVideoRef.current.play();
+          }
         });
+
+        peer.currentCall = call;
       });
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    };
+
+    peer.on("call", handleCall);
+
+    return () => {
+      if (peer.currentCall) {
+        peer.currentCall.close();
+      }
+      peer.off("call", handleCall);
+    };
+  }, [peerInstance, currentUserVideoRef, remoteVideoRef]);
+
+  const stopMediaStreams = (stream) => {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+  };
+
+  const endCall = () => {
+    stopMediaStreams(currentUserVideoRef.current?.srcObject);
+    stopMediaStreams(remoteVideoRef.current?.srcObject);
+    setOpenVideoCall(false);
+    socket.emit("requestedCallDecline", { to, from });
+  };
+
+  const toggleVideo = () => {
+    const stream = currentUserVideoRef.current?.srcObject;
+    if (stream) {
+      const videoTrack = stream
+        .getTracks()
+        .find((track) => track.kind === "video");
+      if (videoTrack) {
+        videoTrack.enabled = !videoTrack.enabled;
+        setIsVideoEnabled(videoTrack.enabled);
+      }
+    }
+  };
+
+  const toggleAudio = () => {
+    const stream = currentUserVideoRef.current?.srcObject;
+    if (stream) {
+      const audioTrack = stream
+        .getTracks()
+        .find((track) => track.kind === "audio");
+      if (audioTrack) {
+        audioTrack.enabled = !audioTrack.enabled;
+        setIsAudioEnabled(audioTrack.enabled);
+      }
+    }
+  };
 
   return (
     <div className="videoCall">
@@ -33,15 +100,17 @@ const VideoCall = ({ peerInstance, currentUserVideoRef, remoteVideoRef }) => {
       </div>
       <div className="videoCallIndividual-permission">
         <div>
-          <button>
-            <span className="material-symbols-outlined">videocam</span>
-            {/* <span className="material-symbols-outlined">videocam_off</span> */}
+          <button onClick={toggleVideo}>
+            <span className="material-symbols-outlined">
+              {isVideoEnabled ? "videocam" : "videocam_off"}
+            </span>
           </button>
-          <button>
-            <span className="material-symbols-outlined">mic</span>
-            {/* <span className="material-symbols-outlined">mic_off</span> */}
+          <button onClick={toggleAudio}>
+            <span className="material-symbols-outlined">
+              {isAudioEnabled ? "mic" : "mic_off"}
+            </span>
           </button>
-          <button>
+          <button onClick={endCall}>
             <span className="material-symbols-outlined">call_end</span>
           </button>
         </div>

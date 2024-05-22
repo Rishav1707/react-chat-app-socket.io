@@ -11,6 +11,7 @@ const Header = ({
   peerInstance,
   remoteVideoRef,
   currentUserVideoRef,
+  setOpenVideoCall,
 }) => {
   const [senderID, setSenderID] = useState(null);
   const [accept, setAccept] = useState(false);
@@ -23,7 +24,7 @@ const Header = ({
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
 
-    getUserMedia({ video: true, audio: false }, (mediaStream) => {
+    getUserMedia({ video: true, audio: true }, (mediaStream) => {
       currentUserVideoRef.current.srcObject = mediaStream;
       currentUserVideoRef.current.play();
 
@@ -34,6 +35,20 @@ const Header = ({
         remoteVideoRef.current.play();
       });
     });
+  };
+
+  const stopMediaStreams = (stream) => {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+  };
+
+  const endCall = () => {
+    stopMediaStreams(currentUserVideoRef.current?.srcObject);
+    stopMediaStreams(remoteVideoRef.current?.srcObject);
+    // setOpenVideoCall(false);
+    // socket.emit("requestedCallDecline", { to, from });
+    setRequestId(null);
   };
 
   useEffect(() => {
@@ -50,11 +65,14 @@ const Header = ({
       socket.off("typing...");
       socket.off("stopTyping");
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     socket.on("requestedCallDecline", (from) => {
       setDeclined(true);
+      setOpenVideoCall(false);
+      endCall();
       setRequestId(from);
       setTimeout(() => {
         setDeclined(false);
@@ -76,6 +94,7 @@ const Header = ({
       socket.off("requestedCallDecline");
       socket.off("requestedCallAccept");
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -103,6 +122,7 @@ const Header = ({
               to: profile._id,
               from: myprofile._id,
             });
+            setOpenVideoCall(true);
           }}
         >
           <span className="material-symbols-outlined">videocam</span>

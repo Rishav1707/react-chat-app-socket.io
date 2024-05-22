@@ -27,9 +27,10 @@ const UserChat = ({ setIsLoggedIn }) => {
   const remoteVideoRef = useRef(null);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
+  const [openVideoCall, setOpenVideoCall] = useState(false);
 
   useEffect(() => {
-    const peer = new Peer();
+    const peer = new Peer("", { debug: 2 });
 
     peer.on("open", (id) => {
       setPeerId(id);
@@ -103,6 +104,7 @@ const UserChat = ({ setIsLoggedIn }) => {
               peerInstance={peerInstance}
               remoteVideoRef={remoteVideoRef}
               currentUserVideoRef={currentUserVideoRef}
+              setOpenVideoCall={setOpenVideoCall}
             />
             <ShowChat
               myprofile={myprofile}
@@ -116,6 +118,8 @@ const UserChat = ({ setIsLoggedIn }) => {
               remoteVideoRef={remoteVideoRef}
               currentUserVideoRef={currentUserVideoRef}
               peerInstance={peerInstance}
+              openVideoCall={openVideoCall}
+              setOpenVideoCall={setOpenVideoCall}
             />
           </div>
         </section>

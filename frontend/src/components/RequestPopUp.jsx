@@ -4,6 +4,7 @@ import { socket } from "../utils/createSocketHost";
 const RequestPopUp = ({ setRequestId, to, from, peerId, setOpenVideoCall }) => {
   const handleCallDecline = () => {
     setRequestId(null);
+    setOpenVideoCall(false);
     socket.emit("requestedCallDecline", { to, from });
   };
 
