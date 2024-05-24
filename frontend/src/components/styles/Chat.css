@@ -18,6 +18,7 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    background-color: rgb(0, 0, 0, 0.3);
 }
 
 .RequestPopUpContainer div:nth-child(1) {
@@ -274,4 +275,8 @@
 
 .videoCallIndividual-permission button span {
     font-size: 1.5rem;
+}
+
+.arrowBack {
+    display: none;
 }

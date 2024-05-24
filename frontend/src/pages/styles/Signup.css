@@ -2,6 +2,11 @@
     width: 20%;
 }
 
+.signupForm div:nth-child(1) {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
 .signupForm p {
     margin-top: 1rem;
 }

@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
+import NotFound from "./components/NotFound";
 import SignUp from "./pages/SignUp";
 import UserChat from "./pages/UserChat";
 import SignIn from "./pages/SignIn";
 import "./App.css";
-import NotFound from "./components/NotFound";
+import "./MediaQuery.css";
 
 const App = () => {
   const [isloggedIn, setIsLoggedIn] = useState(

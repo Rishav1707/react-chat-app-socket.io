@@ -52,6 +52,9 @@ const SignUp = ({ setIsLoggedIn }) => {
 
   return (
     <form onSubmit={handleSubmit} className="signupForm">
+      <div>
+        <h1>Sign up</h1>
+      </div>
       <div className="flex">
         <label htmlFor="username">Username</label>
         <input ref={userInfo.username} type="email" id="username" required />

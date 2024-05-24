@@ -76,10 +76,25 @@ const UserChat = ({ setIsLoggedIn }) => {
 
   return (
     <main id="private_room">
-      <section id="sideBar">
+      <section
+        className={isUserProfileClicked ? "hideSideBar sideBar" : "sideBar"}
+      >
         <SideBar profile={myprofile} setIsLoggedIn={setIsLoggedIn} />
       </section>
-      <section id="groupListSection">
+      <section
+        className={
+          isUserProfileClicked
+            ? "hideUsers groupListSection"
+            : "groupListSection"
+        }
+      >
+        <div className="HeadingName">
+          <h1>TalkWise</h1>
+          <div>
+            <span className="material-symbols-outlined">qr_code_scanner</span>
+            <span className="material-symbols-outlined">photo_camera</span>
+          </div>
+        </div>
         <p className="grp">Chats</p>
         <div>
           {allUsers.map((user) => (
@@ -107,6 +122,7 @@ const UserChat = ({ setIsLoggedIn }) => {
               currentUserVideoRef={currentUserVideoRef}
               setOpenVideoCall={setOpenVideoCall}
               setRequestId={setRequestId}
+              setIsUserProfileClicked={setIsUserProfileClicked}
             />
             <ShowChat
               myprofile={myprofile}

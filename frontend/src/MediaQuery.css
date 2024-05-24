@@ -1,0 +1,163 @@
+/*----------------- Media Query -------------------*/
+
+@media only screen and (max-width: 375px) {
+    .signupForm {
+        width: 85%;
+    }
+
+    .sideBar {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .sideBar .main {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .sideBar .top,
+    .sideBar .bottom {
+        flex-direction: row;
+        padding: 0 1rem;
+    }
+
+    .sideBar .top {
+        padding-left: 0.5rem;
+    }
+
+    .sideBar .bottom {
+        padding-left: 0;
+    }
+
+    .sideBar .top span:nth-child(1) {
+        display: none;
+    }
+
+    .groupListSection {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        background-color: #2a2a2a;
+    }
+
+    .groupListSection .grp {
+        padding: 12px;
+    }
+
+    .HeadingName {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+    }
+
+    .HeadingName div span {
+        font-size: 1.4rem;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .HeadingName div span:hover {
+        background-color: rgb(60, 60, 60);
+        border-radius: 6px;
+    }
+
+    .HeadingName div {
+        display: flex;
+        gap: 0.6rem;
+    }
+
+    #chatSection {
+        width: 100%;
+    }
+
+    #showChat {
+        padding: 20px 10px;
+    }
+
+    .currentUser .messContainer {
+        max-width: 75%;
+    }
+
+    .currentUser {
+        padding: 3px 2px;
+    }
+
+    .otherUser {
+        padding: 3px 2px;
+    }
+
+    .otherUser .messContainer {
+        max-width: 75%;
+    }
+
+    #communication {
+        width: 30%;
+    }
+
+    .profile {
+        width: 65%;
+        gap: 12px;
+    }
+
+    .profile img {
+        width: 42px;
+        height: 42px;
+    }
+
+    #messageInput {
+        padding-right: 10px;
+    }
+
+    #messageInput textarea {
+        padding-left: 5px;
+        padding-right: 10px;
+    }
+
+    .helloVideoContainer {
+        display: none;
+    }
+
+    .videoCallIndividual-permission div {
+        gap: 0;
+        justify-content: space-between;
+        width: 90%;
+    }
+
+    .videoCall {
+        flex-direction: column;
+    }
+
+    .videoCall video {
+        width: auto;
+    }
+
+    .videoCallIndividual-current,
+    .videoCallIndividual-remote {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .videoCallIndividual-current {
+        margin-top: 4rem;
+    }
+
+    .hideUsers,
+    .hideSideBar {
+        display: none;
+    }
+
+    .arrowBack {
+        display: flex;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .chatInput header {
+        padding-left: 12px;
+        align-items: center;
+    }
+}

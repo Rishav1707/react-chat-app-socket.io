@@ -9,47 +9,52 @@
     display: flex;
 }
 
-#sideBar {
+.sideBar {
     width: 3.5%;
     display: flex;
     padding: 1rem 0;
     background-color: #222222;
 }
 
-#sideBar .main {
+.sideBar .main {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-#sideBar .main span {
+.sideBar .main span {
     font-size: 1.4rem;
     cursor: pointer;
     padding: 0.5rem;
 }
 
-#sideBar .main span:hover {
+.chatIcon {
     background-color: rgb(60, 60, 60);
     border-radius: 6px;
 }
 
-#sideBar .bottom,
-#sideBar .top {
+.sideBar .main span:hover {
+    background-color: rgb(60, 60, 60);
+    border-radius: 6px;
+}
+
+.sideBar .bottom,
+.sideBar .top {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#sideBar .top {
+.sideBar .top {
     gap: 1.2rem;
 }
 
-#sideBar .bottom {
+.sideBar .bottom {
     gap: 1.2rem;
 }
 
-#groupListSection {
+.groupListSection {
     width: 26.5%;
     padding: 10px;
     border-right: 1px solid #191919;
@@ -59,7 +64,7 @@
     overflow-y: scroll;
 }
 
-#groupListSection .grp {
+.groupListSection .grp {
     font-size: 1.3rem;
     padding: 20px;
 }
@@ -94,7 +99,7 @@
 }
 
 .profile img,
-#sideBar img {
+.sideBar img {
     border-radius: 50%;
 }
 
@@ -142,4 +147,8 @@
     font-size: 1.5rem;
     padding: 0 16rem;
     color: #a0a0a0;
+}
+
+.HeadingName {
+    display: none;
 }
