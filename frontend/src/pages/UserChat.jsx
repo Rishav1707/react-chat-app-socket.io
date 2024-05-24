@@ -19,6 +19,7 @@ const UserChat = ({ setIsLoggedIn }) => {
   const [myprofile, setMyProfile] = useState({});
   const [allUsers, setAllUsers] = useState([]);
   const [isUserProfileClicked, setIsUserProfileClicked] = useState(false);
+  const [isUserClickedMobile, setIsUserClickedMobile] = useState(false);
   const [userProfile, setUserProfile] = useState({});
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [message, setMessage] = useState("");
@@ -57,6 +58,7 @@ const UserChat = ({ setIsLoggedIn }) => {
     setSelectedUserId(id);
     userById(id).then((data) => {
       setIsUserProfileClicked(true);
+      setIsUserClickedMobile(true);
       setUserProfile(data);
     });
     setMessage("");
@@ -77,13 +79,13 @@ const UserChat = ({ setIsLoggedIn }) => {
   return (
     <main id="private_room">
       <section
-        className={isUserProfileClicked ? "hideSideBar sideBar" : "sideBar"}
+        className={isUserClickedMobile ? "hideSideBar sideBar" : "sideBar"}
       >
         <SideBar profile={myprofile} setIsLoggedIn={setIsLoggedIn} />
       </section>
       <section
         className={
-          isUserProfileClicked
+          isUserClickedMobile
             ? "hideUsers groupListSection"
             : "groupListSection"
         }
@@ -122,7 +124,7 @@ const UserChat = ({ setIsLoggedIn }) => {
               currentUserVideoRef={currentUserVideoRef}
               setOpenVideoCall={setOpenVideoCall}
               setRequestId={setRequestId}
-              setIsUserProfileClicked={setIsUserProfileClicked}
+              setIsUserClickedMobile={setIsUserClickedMobile}
             />
             <ShowChat
               myprofile={myprofile}

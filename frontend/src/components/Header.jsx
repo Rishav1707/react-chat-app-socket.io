@@ -13,7 +13,7 @@ const Header = ({
   currentUserVideoRef,
   setOpenVideoCall,
   setRequestId,
-  setIsUserProfileClicked,
+  setIsUserClickedMobile,
 }) => {
   const [senderID, setSenderID] = useState(null);
   const [accept, setAccept] = useState(false);
@@ -99,7 +99,7 @@ const Header = ({
 
   return (
     <header>
-      <div className="arrowBack" onClick={() => setIsUserProfileClicked(false)}>
+      <div className="arrowBack" onClick={() => setIsUserClickedMobile(false)}>
         <span className="material-symbols-outlined">arrow_back_ios</span>
       </div>
       <div className="profile">

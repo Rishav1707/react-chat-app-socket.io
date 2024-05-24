@@ -1,6 +1,6 @@
 /*----------------- Media Query -------------------*/
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 425px) {
     .signupForm {
         width: 85%;
     }
@@ -21,6 +21,7 @@
     .sideBar .bottom {
         flex-direction: row;
         padding: 0 1rem;
+        gap: 2rem;
     }
 
     .sideBar .top {
@@ -131,14 +132,18 @@
         width: 90%;
     }
 
+    .videoCallIndividual-permission {
+        bottom: 1.5rem;
+    }
+
     .videoCall {
         flex-direction: column;
         gap: 2rem;
     }
 
     .videoCall video {
-        width: 85%;
-        height: 15rem;
+        width: 330px;
+        height: 250px;
     }
 
     .videoCallIndividual-current,
@@ -169,5 +174,13 @@
 
     .userFocused {
         background: none;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+
+    .sideBar .top,
+    .sideBar .bottom {
+        gap: 1.2rem;
     }
 }
