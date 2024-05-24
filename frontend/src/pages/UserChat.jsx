@@ -96,7 +96,7 @@ const UserChat = ({ setIsLoggedIn }) => {
           </div>
         </div>
         <p className="grp">Chats</p>
-        <div>
+        <div className="user-overflow">
           {allUsers.map((user) => (
             <User
               key={user._id}
