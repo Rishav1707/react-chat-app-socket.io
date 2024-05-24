@@ -80,7 +80,6 @@
 
     #showChat {
         padding: 20px 10px;
-        margin-bottom: 4rem;
     }
 
     .currentUser .messContainer {
@@ -115,10 +114,6 @@
 
     #messageInput {
         padding-right: 10px;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: #2a2a2a;
     }
 
     #messageInput textarea {
