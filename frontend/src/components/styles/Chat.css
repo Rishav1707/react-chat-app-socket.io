@@ -235,6 +235,7 @@
 .videoCall video {
     width: 60%;
     border-radius: 1.2rem;
+    object-fit: cover;
 }
 
 .videoCallIndividual-permission {
