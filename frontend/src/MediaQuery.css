@@ -132,10 +132,6 @@
         width: 90%;
     }
 
-    .videoCallIndividual-permission {
-        bottom: 1.5rem;
-    }
-
     .videoCall {
         flex-direction: column;
         gap: 2rem;
