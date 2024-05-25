@@ -14,6 +14,7 @@ import { socket } from "../utils/createSocketHost";
 import ShowChat from "../components/ShowChat";
 import Peer from "peerjs";
 import "./styles/Join.css";
+import SearchInput from "../components/SearchInput";
 
 const UserChat = ({ setIsLoggedIn }) => {
   const [myprofile, setMyProfile] = useState({});
@@ -30,6 +31,7 @@ const UserChat = ({ setIsLoggedIn }) => {
   const peerInstance = useRef(null);
   const [openVideoCall, setOpenVideoCall] = useState(false);
   const [requestId, setRequestId] = useState(null);
+  const [nametobeFiltered, setNameToBeFiltered] = useState("");
 
   useEffect(() => {
     const peer = new Peer("", { debug: 2 });
@@ -62,6 +64,7 @@ const UserChat = ({ setIsLoggedIn }) => {
       setUserProfile(data);
     });
     setMessage("");
+    setNameToBeFiltered("");
 
     const unreadCount = myprofile.unreadMsgCount?.find(
       (unread) => unread.from === id
@@ -98,17 +101,28 @@ const UserChat = ({ setIsLoggedIn }) => {
           </div>
         </div>
         <p className="grp">Chats</p>
+        <SearchInput
+          setAllUsers={setAllUsers}
+          nametobeFiltered={nametobeFiltered}
+          setNameToBeFiltered={setNameToBeFiltered}
+        />
         <div className="user-overflow">
-          {allUsers.map((user) => (
-            <User
-              key={user._id}
-              user={user}
-              isSelected={selectedUserId === user._id}
-              onClick={() => handleUserProfile(user._id)}
-              myprofile={myprofile}
-              setAllUsers={setAllUsers}
-            />
-          ))}
+          {allUsers ? (
+            allUsers.map((user) => (
+              <User
+                key={user._id}
+                user={user}
+                isSelected={selectedUserId === user._id}
+                onClick={() => handleUserProfile(user._id)}
+                myprofile={myprofile}
+                setAllUsers={setAllUsers}
+              />
+            ))
+          ) : (
+            <div style={{ fontSize: "1.2rem", marginLeft: "1rem" }}>
+              <p>Sorry, user not found !!</p>
+            </div>
+          )}
         </div>
       </section>
       {isUserProfileClicked ? (

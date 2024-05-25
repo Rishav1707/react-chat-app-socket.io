@@ -163,6 +163,36 @@ const resetUnreadMessages = async (req, res) => {
   }
 };
 
+const filterUsers = async (req, res) => {
+  try {
+    const filter = req.query.filter || "";
+    const users = await User.find(
+      {
+        _id: { $ne: req.userId },
+        $or: [
+          { firstName: { $regex: filter, $options: "i" } },
+          { lastName: { $regex: filter, $options: "i" } },
+        ],
+      },
+      { password: 0 }
+    ).populate({
+      path: "lastMessage.message",
+    });
+
+    if (users.length === 0) {
+      res.status(404).json({ message: "No users found" });
+      return;
+    }
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error while filtering users",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   userSignup,
   userSignin,
@@ -171,4 +201,5 @@ module.exports = {
   userById,
   incrementUnreadMessages,
   resetUnreadMessages,
+  filterUsers,
 };

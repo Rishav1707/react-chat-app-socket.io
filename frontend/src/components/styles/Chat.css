@@ -281,3 +281,32 @@
 .arrowBack {
     display: none;
 }
+
+.SearchUserInput {
+    background-color: inherit;
+    border-radius: 8px;
+    position: relative;
+    border-radius: 5rem;
+    box-shadow: 0 0 10px 0 rgb(80, 80, 80);
+    margin-bottom: 1rem;
+}
+
+.SearchUserInput input {
+    width: 100%;
+    padding: 0.8rem 2.5rem;
+    border-radius: inherit;
+    border: none;
+    background-color: inherit;
+    color: #fff;
+    font-size: 15px;
+}
+
+.SearchUserInput input:focus {
+    outline: none;
+}
+
+.SearchUserInput span {
+    position: absolute;
+    top: 11.5px;
+    left: 17px;
+}

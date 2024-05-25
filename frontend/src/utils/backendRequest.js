@@ -106,6 +106,22 @@ const resetUnreadMsg = async (from) => {
   }
 };
 
+const filterUsers = async (name) => {
+  try {
+    const response = await axios.get(
+      `${BACKEND_BASE_URL}/user/filter?filter=${name}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authtoken")}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export {
   fetchUserProfile,
   fetchAllUsers,
@@ -114,4 +130,5 @@ export {
   getMessages,
   incrementUnreadMsg,
   resetUnreadMsg,
+  filterUsers,
 };
