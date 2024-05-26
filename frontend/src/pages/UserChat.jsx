@@ -15,6 +15,7 @@ import ShowChat from "../components/ShowChat";
 import Peer from "peerjs";
 import "./styles/Join.css";
 import SearchInput from "../components/SearchInput";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const UserChat = ({ setIsLoggedIn }) => {
   const [myprofile, setMyProfile] = useState({});
@@ -32,6 +33,7 @@ const UserChat = ({ setIsLoggedIn }) => {
   const [openVideoCall, setOpenVideoCall] = useState(false);
   const [requestId, setRequestId] = useState(null);
   const [nametobeFiltered, setNameToBeFiltered] = useState("");
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const peer = new Peer("", { debug: 2 });
@@ -47,8 +49,10 @@ const UserChat = ({ setIsLoggedIn }) => {
     fetchUserProfile().then((data) => {
       setMyProfile(data);
     });
+    setLoader(true);
     fetchAllUsers().then((data) => {
       setAllUsers(data);
+      setLoader(false);
     });
   }, []);
 
@@ -107,7 +111,9 @@ const UserChat = ({ setIsLoggedIn }) => {
           setNameToBeFiltered={setNameToBeFiltered}
         />
         <div className="user-overflow">
-          {allUsers ? (
+          {loader ? (
+            <LoadingSpinner />
+          ) : allUsers ? (
             allUsers.map((user) => (
               <User
                 key={user._id}
