@@ -46,10 +46,10 @@ const UserChat = ({ setIsLoggedIn }) => {
   }, []);
 
   useEffect(() => {
+    setLoader(true);
     fetchUserProfile().then((data) => {
       setMyProfile(data);
     });
-    setLoader(true);
     fetchAllUsers().then((data) => {
       setAllUsers(data);
       setLoader(false);
@@ -88,7 +88,11 @@ const UserChat = ({ setIsLoggedIn }) => {
       <section
         className={isUserClickedMobile ? "hideSideBar sideBar" : "sideBar"}
       >
-        <SideBar profile={myprofile} setIsLoggedIn={setIsLoggedIn} />
+        <SideBar
+          profile={myprofile}
+          setIsLoggedIn={setIsLoggedIn}
+          loader={loader}
+        />
       </section>
       <section
         className={

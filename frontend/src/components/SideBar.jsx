@@ -1,7 +1,8 @@
 import { socket } from "../utils/createSocketHost";
+import loadingImage from "../assets/imageLoading.gif";
 
 /* eslint-disable react/prop-types */
-const SideBar = ({ profile, setIsLoggedIn }) => {
+const SideBar = ({ profile, setIsLoggedIn, loader }) => {
   return (
     <div className="main">
       <div className="top">
@@ -22,12 +23,21 @@ const SideBar = ({ profile, setIsLoggedIn }) => {
         >
           logout
         </span>
-        <img
-          src={profile.profileImg}
-          alt="profilePhoto"
-          width={28}
-          height={28}
-        />
+        {loader ? (
+          <img
+            src={loadingImage}
+            alt="Image-Loading-Spinner"
+            width={28}
+            height={28}
+          />
+        ) : (
+          <img
+            src={profile.profileImg}
+            alt="profilePhoto"
+            width={28}
+            height={28}
+          />
+        )}
       </div>
     </div>
   );
