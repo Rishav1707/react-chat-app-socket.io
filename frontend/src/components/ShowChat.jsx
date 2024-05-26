@@ -81,26 +81,43 @@ const ShowChat = ({
     chatRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
 
+  let lastDisplayedDate = null;
+
   return (
     <>
       <section id="showChat">
-        {chat.map((mess, index) => (
-          <div
-            className={mess.fromSelf ? "currentUser" : "otherUser"}
-            key={index}
-          >
-            {(mess.fromSelf || mess.from === selectedUserId) && (
-              <>
-                <div className="messContainer">
-                  <p className="mess">{mess.message}</p>
-                  <div>
-                    <sub>{mess.time.split(" ")[4].substring(0, 5)}</sub>
-                  </div>
+        {chat.map((mess, index) => {
+          const currentDate = mess.time.substring(4, 15);
+          const showDate = lastDisplayedDate !== currentDate;
+          if (showDate) {
+            lastDisplayedDate = currentDate;
+          }
+
+          return (
+            <>
+              {(mess.fromSelf || mess.from === selectedUserId) && showDate && (
+                <div className="DateAndYear">
+                  <p>{currentDate}</p>
                 </div>
-              </>
-            )}
-          </div>
-        ))}
+              )}
+              <div
+                className={mess.fromSelf ? "currentUser" : "otherUser"}
+                key={index}
+              >
+                {(mess.fromSelf || mess.from === selectedUserId) && (
+                  <>
+                    <div className="messContainer">
+                      <p className="mess">{mess.message}</p>
+                      <div>
+                        <sub>{mess.time.split(" ")[4].substring(0, 5)}</sub>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
+          );
+        })}
         {requestId === selectedUserId && (
           <RequestPopUp
             setRequestId={setRequestId}
