@@ -4,7 +4,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 const manifestForPlugIn = {
   registerType: "autoUpdate",
-  includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
+  includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
   manifest: {
     short_name: "TalkWise",
     name: "TalkWise: Where seamless conversation meets simplicity",
