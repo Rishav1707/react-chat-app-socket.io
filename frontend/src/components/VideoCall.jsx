@@ -25,7 +25,6 @@ const VideoCall = ({
       getUserMedia({ video: true, audio: true }, (mediaStream) => {
         if (currentUserVideoRef.current) {
           currentUserVideoRef.current.srcObject = mediaStream;
-          currentUserVideoRef.current.play();
         }
 
         call.answer(mediaStream);
@@ -33,7 +32,6 @@ const VideoCall = ({
         call.on("stream", (remoteStream) => {
           if (remoteVideoRef.current) {
             remoteVideoRef.current.srcObject = remoteStream;
-            remoteVideoRef.current.play();
           }
         });
 
@@ -93,10 +91,10 @@ const VideoCall = ({
   return (
     <div className="videoCall">
       <div className="videoCallIndividual-current">
-        <video ref={currentUserVideoRef} />
+        <video ref={currentUserVideoRef} autoPlay />
       </div>
       <div className="videoCallIndividual-remote">
-        <video ref={remoteVideoRef} />
+        <video ref={remoteVideoRef} autoPlay />
       </div>
       <div className="videoCallIndividual-permission">
         <div>
